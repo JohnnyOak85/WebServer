@@ -1,8 +1,5 @@
 package org.academiadecodigo.bootcamp;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-
-import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.Socket;
 
@@ -28,7 +25,7 @@ public class Client implements Runnable {
             }
     }
 
-    public void openStreams() throws IOException{
+    private void openStreams() throws IOException{
 
         input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         output = new DataOutputStream(socket.getOutputStream());

@@ -3,11 +3,10 @@ package org.academiadecodigo.bootcamp;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class WebServer {
-
-    private Socket browserSocket;
-    private BufferedReader input;
 
     public static void main(String[] args){
         try {
@@ -21,13 +20,14 @@ public class WebServer {
 
     private void startConnection() throws IOException{
         final int PORT = 8080;
+        Socket browserSocket;
         ServerSocket serverSocket = new ServerSocket(PORT);
         while (true) {
 
             browserSocket = serverSocket.accept();
+            ExecutorService fixedPool = Executors.newFixedThreadPool(50);
 
-            Thread thread = new Thread(new Client(browserSocket));
-            thread.start();
+            fixedPool.submit(new Client(browserSocket));
         }
     }
 }

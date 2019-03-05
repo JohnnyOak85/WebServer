@@ -16,6 +16,9 @@ public class Header {
                 case "jpeg":
                     contentType = "image/jpeg;";
                     break;
+                case "jpg":
+                    contentType = "image/jpg;";
+                    break;
             }
         }
 
