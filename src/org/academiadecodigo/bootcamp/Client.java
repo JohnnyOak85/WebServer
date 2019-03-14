@@ -51,7 +51,7 @@ public class Client implements Runnable {
             file = new File(filePath);
         }
 
-        if (filePath.equals("/")) {
+        if (filePath.equals("/") || filePath.equals("")) {
             filePath = "www/index.html";
             header.setStatusCode("document");
             header.setContentType("html");
