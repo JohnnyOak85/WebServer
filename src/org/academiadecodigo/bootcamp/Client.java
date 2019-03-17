@@ -26,39 +26,17 @@ public class Client implements Runnable {
     }
 
     private void openStreams() throws IOException{
-
         input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         output = new DataOutputStream(socket.getOutputStream());
-
-
     }
 
     private void sendData() throws IOException {
-
-
-        String headerRequest = input.readLine();
-        System.out.println(headerRequest);
-        String filePath = headerRequest.split(" ")[1];
-
-        File file = new File("www" + filePath);
-        System.out.println(filePath);
+        FileDispatcher fileDispatcher = new FileDispatcher();
+        File file = fileDispatcher.getFile(getRequest());
 
         Header header = new Header(file.length());
-        if (!file.exists()) {
-            filePath = "www/404.html";
-            header.setStatusCode("error");
-            header.setContentType("html");
-            file = new File(filePath);
-        }
-
-        if (filePath.equals("/") || filePath.equals("")) {
-            filePath = "www/index.html";
-            header.setStatusCode("document");
-            header.setContentType("html");
-            file = new File(filePath);
-        }
-        header.setContentType(filePath.split("\\.")[1]);
-
+        header.setContentType(fileDispatcher.getContentType());
+        header.setStatusCode(fileDispatcher.getFileType());
 
         output.writeBytes(header.getHeader());
 
@@ -66,13 +44,14 @@ public class Client implements Runnable {
         byte[] buffer = new byte[1024];
 
         int numBytes;
-
         while ((numBytes = fileInputStream.read(buffer)) != -1) {
             output.write(buffer, 0, numBytes);
         }
-
         fileInputStream.close();
+    }
 
+    private String getRequest() throws IOException{
+        return input.readLine();
     }
 
     private void closeConnection() throws IOException {
@@ -80,6 +59,5 @@ public class Client implements Runnable {
         socket.close();
         input.close();
         output.close();
-
     }
 }
