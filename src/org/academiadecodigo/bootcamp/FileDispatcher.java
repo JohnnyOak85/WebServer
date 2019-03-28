@@ -23,6 +23,9 @@ public class FileDispatcher {
             contentType = "html";
         }
 
+        System.out.println(filePath);
+        System.out.println(fileType);
+        System.out.println(contentType);
         return file;
     }
 
