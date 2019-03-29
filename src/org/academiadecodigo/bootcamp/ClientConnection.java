@@ -3,17 +3,23 @@ package org.academiadecodigo.bootcamp;
 import java.io.*;
 import java.net.Socket;
 
-public class Client implements Runnable {
+public class ClientConnection implements Runnable {
 
     private BufferedReader input;
     private DataOutputStream output;
     private Socket socket;
 
-    public Client(Socket socket) {
+    /**
+     * Constructor method that receives a socket.
+     * @param socket
+     */
+    public ClientConnection(Socket socket) {
         this.socket = socket;
-
     }
 
+    /**
+     * Main method that uses all others to communicate between the server and the browser.
+     */
     @Override
     public void run() {
             try {
@@ -25,14 +31,23 @@ public class Client implements Runnable {
             }
     }
 
+    /**
+     * Opens the streams to receive a request from the browser
+     * and send data back.
+     * @throws IOException
+     */
     private void openStreams() throws IOException{
         input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         output = new DataOutputStream(socket.getOutputStream());
     }
 
+    /**
+     * Sends the data back to the browser.
+     * @throws IOException
+     */
     private void sendData() throws IOException {
-        FileDispatcher fileDispatcher = new FileDispatcher();
-        File file = fileDispatcher.getFile(getRequest());
+        FileDispatcher fileDispatcher = new FileDispatcher(getRequest());
+        File file = fileDispatcher.getFile();
 
         Header header = new Header(file.length());
         header.setContentType(fileDispatcher.getContentType());
@@ -50,10 +65,18 @@ public class Client implements Runnable {
         fileInputStream.close();
     }
 
+    /**
+     * @return The request from the browser.
+     * @throws IOException
+     */
     private String getRequest() throws IOException{
         return input.readLine();
     }
 
+    /**
+     * Closes all connections.
+     * @throws IOException
+     */
     private void closeConnection() throws IOException {
         System.out.println("Connection has been terminated.");
         socket.close();

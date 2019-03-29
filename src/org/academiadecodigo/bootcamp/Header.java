@@ -9,12 +9,18 @@ public class Header {
     private String statusCode;
     private long length;
 
+    /**
+     * @param length
+     */
     public Header(long length) {
         this.length = length;
         contentTypeMap = new HashMap<>();
         buildMap();
     }
 
+    /**
+     *Builds a map with various mime types.
+     */
     private void buildMap() {
         contentTypeMap.put("html", "text/html");
         contentTypeMap.put("txt", "text/plain");
@@ -26,10 +32,18 @@ public class Header {
         contentTypeMap.put("zip", "application/zip");
     }
 
+    /**
+     * Receives a file type extension and sets the content type to its correspondent.
+     * @param fileType
+     */
     public void setContentType(String fileType) {
         contentType = contentTypeMap.get(fileType);
     }
 
+    /**
+     * Receives a file type and sets the status code to its correspondent.
+     * @param type
+     */
     public void setStatusCode(String type) {
         switch (type) {
             case "document":
@@ -44,6 +58,10 @@ public class Header {
         }
     }
 
+    /**
+     * b
+     * @return The header
+     */
     public String getHeader() {
         String header;
 

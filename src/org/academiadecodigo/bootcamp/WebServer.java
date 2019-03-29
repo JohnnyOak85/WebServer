@@ -18,6 +18,10 @@ public class WebServer {
         }
     }
 
+    /**
+     * Starts the connection.
+     * @throws IOException
+     */
     private void startConnection() throws IOException{
         final int PORT = 8080;
         Socket browserSocket;
@@ -27,7 +31,7 @@ public class WebServer {
             browserSocket = serverSocket.accept();
             ExecutorService fixedPool = Executors.newFixedThreadPool(50);
 
-            fixedPool.submit(new Client(browserSocket));
+            fixedPool.submit(new ClientConnection(browserSocket));
         }
     }
 }
