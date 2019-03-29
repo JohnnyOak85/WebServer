@@ -1,42 +1,33 @@
 package org.academiadecodigo.bootcamp;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Header {
+    private Map<String, String> contentTypeMap;
     private String contentType;
     private String statusCode;
     private long length;
 
     public Header(long length) {
         this.length = length;
+        contentTypeMap = new HashMap<>();
+        buildMap();
+    }
+
+    private void buildMap() {
+        contentTypeMap.put("html", "text/html");
+        contentTypeMap.put("txt", "text/plain");
+        contentTypeMap.put("jpg", "image/jpeg");
+        contentTypeMap.put("gif", "image/gif");
+        contentTypeMap.put("mp3", "audio/mpeg3");
+        contentTypeMap.put("mpg", "video/mpeg");
+        contentTypeMap.put("pdf", "application/pdf");
+        contentTypeMap.put("zip", "application/zip");
     }
 
     public void setContentType(String fileType) {
-        switch (fileType) {
-            case "html":
-                contentType = "text/html;";
-                break;
-            case "txt":
-                contentType = "text/plain";
-                break;
-            case "jpeg":
-            case "jpg":
-                contentType = "image/jpeg;";
-                break;
-            case "gif":
-                contentType = "image/gif";
-                break;
-            case "mp3":
-                contentType = "audio/mpeg3";
-                break;
-            case  "mpg":
-                contentType = "video/mpeg";
-                break;
-            case "pdf":
-                contentType = "application/pdf";
-                break;
-            case "zip":
-                contentType = "application/zip";
-                break;
-        }
+        contentType = contentTypeMap.get(fileType);
     }
 
     public void setStatusCode(String type) {
