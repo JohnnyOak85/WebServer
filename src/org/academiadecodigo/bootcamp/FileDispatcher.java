@@ -9,19 +9,23 @@ public class FileDispatcher {
     public File getFile(String request) {
         String filePath = request.split(" ")[1];
         File file = new File("www" + filePath);
-        fileType = "document";
-        contentType = filePath.split("\\.")[1];
 
         if (!file.exists()) {
             file = new File("www/404.html");
             fileType = "error";
             contentType = "html";
+            return file;
         }
+
+        fileType = "document";
 
         if (filePath.equals("/") || filePath.equals("")) {
             file = new File ("www/index.html");
             contentType = "html";
+            return file;
         }
+
+        contentType = filePath.split("\\.")[1];
 
         System.out.println(filePath);
         System.out.println(fileType);
