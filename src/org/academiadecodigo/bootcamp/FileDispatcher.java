@@ -28,15 +28,13 @@ public class FileDispatcher {
             contentType = "html";
             return;
         }
-
         fileType = "document";
 
         if (filePath.equals("/") || filePath.equals("")) {
-            file = new File ("www/index.html");
+            file = new File ("www/profile.html");
             contentType = "html";
             return;
         }
-
         contentType = filePath.split("\\.")[1];
     }
 

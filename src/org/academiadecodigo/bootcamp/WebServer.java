@@ -23,7 +23,7 @@ public class WebServer {
      * @throws IOException
      */
     private void startConnection() throws IOException{
-        final int PORT = 8080;
+        final int PORT = 80;
         Socket browserSocket;
         ServerSocket serverSocket = new ServerSocket(PORT);
         while (true) {
