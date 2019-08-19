@@ -31,7 +31,7 @@ public class FileDispatcher {
         fileType = "document";
 
         if (filePath.equals("/") || filePath.equals("")) {
-            file = new File ("www/profile.html");
+            file = new File ("www/index.html");
             contentType = "html";
             return;
         }
