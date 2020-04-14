@@ -1,4 +1,4 @@
-# WebServer
+# Java WebServer
 An academic web server built during my time at <Academia de Código>.
 
 ## Author
